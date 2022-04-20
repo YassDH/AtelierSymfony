@@ -63,18 +63,18 @@
                         <h5 class="card-title">{{ name }}</h5>
                         <p class="card-text">{{ content }}</p>
                         <div class="d-flex" style="justify-content: center;align-items: center;">
-                            <a class="btn btn-secondary" data-bs-toggle="collapse" href="#collapseExample{{ name }}" role="button" aria-expanded="false" aria-controls="collapseExample{{ name }}">Modifier</a>
+                            <a class="btn btn-secondary" data-bs-toggle="collapse" href="#collapseExample{{ loop.index }}" role="button" aria-expanded="false" aria-controls="collapseExample{{ loop.index }}">Modifier</a>
 
                             <a href="#" class="btn btn-danger bruh" onclick="return deleteElement('{{ name }}', this)">Supprimer</a>
                         </div>
-                        <div class="collapse" id="collapseExample{{ name }}">
+                        <div class="collapse" id="collapseExample{{ loop.index }}">
                             <div class="card card-body">
-                                <form method="post" onsubmit="return editElement('{{ name }}',this)" class="action">
+                                <form method="post" onsubmit="return editElement('{{ name }}','{{ loop.index }}',this)" class="action">
                                     <div class="mb-3">
-                                        <input type="text" id="titleEdit{{ name }}" class="form-control" aria-label="Disabled input example" disabled placeholder="Title" value="{{ name }}" required>
+                                        <input type="text" id="titleEdit{{ loop.index }}" class="form-control" aria-label="Disabled input example" disabled placeholder="Title" value="{{ name }}" required>
                                     </div>
                                     <div class="mb-3">
-                                        <textarea class="form-control" id="ContentEdit{{ name }}" rows="3" placeholder="Content" required></textarea>
+                                        <textarea class="form-control" id="ContentEdit{{ loop.index }}" rows="3" placeholder="Content" required></textarea>
                                     </div>
                                     <button type="submit" class="btn btn-dark">Enregistrer les Modifications</button>
                                 </form>
@@ -94,9 +94,9 @@
                 form.action=link;
                 return true;
             }
-            function editElement(name, form){
-                let id1 ='#titleEdit'+name;
-                let id2 ='#ContentEdit'+name;
+            function editElement(name, iteration , form){
+                let id1 ='#titleEdit'+iteration;
+                let id2 ='#ContentEdit'+iteration;
                 let title = document.querySelector(id1).value;
                 let content = document.querySelector(id2).value;
                 let link = "todo/edit/" + title + "/" + content;
